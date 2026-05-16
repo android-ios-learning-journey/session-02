@@ -209,3 +209,218 @@ Opción code -> optimizas // es para limiar cuando remplazas
         }
     }
 ```
+---
+
+A continuación de describe todo el código a nivel de desarrollo de software. 
+
+Se muestra 4 imagenes de animales, consume API Rest - Home.kt
+
+```kotlin
+package pe.edu.upc.easyschop
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import pe.edu.upc.easyschop.ui.theme.AppTheme
+
+@Composable
+fun Home(modifier: Modifier = Modifier) {
+
+    val categories = listOf(
+        Category(painter = painterResource(R.drawable.dogcategory), name = "Dog"),
+        Category(painter = painterResource(R.drawable.catcategory), name = "Cat"),
+        Category(painter = painterResource(R.drawable.birdcategory), name = "Bird"),
+        Category(painter = painterResource(R.drawable.fishcategory), name = "Fish")
+    )
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Text(text = "Categories", fontWeight = FontWeight.Bold)
+        LazyRow {
+            items(categories) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Image(
+                        painter = it.painter,
+                        contentDescription = it.name,
+                        modifier = Modifier.size(64.dp)
+                    )
+                    Text(text = it.name)
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun HomePreview() {
+    AppTheme() {
+        Home()
+    }
+}
+
+data class Category(
+    val painter: Painter,
+    val name: String
+)
+```
+
+Se muestra una imagen mas user and password (boton inicio), esta en Login.kt
+
+```kotlin
+package pe.edu.upc.easyschop
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import pe.edu.upc.easyschop.ui.theme.AppTheme
+
+@Composable
+fun Login(modifier: Modifier = Modifier) {
+    var email = remember { mutableStateOf("") }
+
+    var password = remember { mutableStateOf("") }
+
+    val isVisible = remember {
+        mutableStateOf(false)
+    }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center // Centre verticalmente, un composable no retorna nada (unit), genera vistas
+    ) {
+
+        Image(
+            painter = painterResource(
+                id = R.drawable.background
+            ),
+            contentDescription = null,
+            modifier = Modifier.height(256.dp).fillMaxSize(),
+            contentScale = ContentScale.Fit
+        )
+
+        OutlinedTextField(
+            value = email.value, onValueChange = {
+            email.value = it
+        }, placeholder = {
+            Text("Email")
+        }, modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
+
+        OutlinedTextField(
+            value = password.value,
+            onValueChange = {
+                password.value = it
+            },
+            placeholder = {
+                Text("Password")
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            visualTransformation = if (isVisible.value) {
+                VisualTransformation.None
+            } else {
+                PasswordVisualTransformation()
+            },
+            trailingIcon = {
+                IconButton(
+                    onClick = {
+                        isVisible.value = !isVisible.value
+                    }) {
+                    Icon(
+                        painter = painterResource(
+                            if (isVisible.value) {
+                                R.drawable.visibility
+                            } else {
+                                R.drawable.visibility_off
+                            }
+                        ), contentDescription = null
+                    )
+                }
+            })
+
+        Button(
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+            Text("Login")
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun LoginPreview() {
+    AppTheme() {
+        Login()
+    }
+}
+```
+
+Aqui de detalla el MainActivity
+
+```kotlin
+package pe.edu.upc.easyschop
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import pe.edu.upc.easyschop.ui.theme.AppTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            AppTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Login(Modifier.padding(innerPadding))
+                }
+            }
+        }
+    }
+}
+```
