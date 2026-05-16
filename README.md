@@ -6,21 +6,31 @@
 
 ---
 
-Patrones de diseño
-Patrones de arquitectura
-Principios de SOLID 
-Clean arquitectura 
-Clean code
+- Patrones de diseño
+
+- Patrones de arquitectura
+
+- Principios de SOLID 
+
+- Clean arquitectura 
+
+- Clean code
+
+- Guia de documentación docs as code
 
 Recordatorio de la ética, código ética del Perú, colegio ingeniero del Perú, 
 
 Bound de context y subdominio (solución) la comunicación se da por eventos, capa de dominio, reglas de negocio, separar las responsabilidades, 
 
 Capas: 
-Presentation
-Infrastructure
-Application
-Domain
+
+- Presentation
+
+- Infrastructure
+
+- Application
+
+- Domain
 
 EvenStorming, realizar para este entrega, por cada Bound de contextex se hace un flujo de (Domain message Flow modeling)
 
@@ -29,9 +39,9 @@ iOS,
 
 Materiales de alcance 
 
-- https://github.com/ddd-crew/
-- https://www.blablacar.es/ 
-
+[Domain Drive Design](https://github.com/ddd-crew/)
+ 
+[Diseño](https://www.blablacar.es/)
 
 ---
 
@@ -52,6 +62,7 @@ fácil de importar biblioteca de icon de pripio andor
 Session 03 
 
 Aprendizaje de GitFlow 
+
 Guía para repositorio de doc as code, enseña de GitFlow (Manejo de la documentación), recomendación para informe colaborativo. mas usado en proyectos.
 Flutter esta hecho para móvil, escritorio, sale al mercado del 2019
 media hora de examen del PC1, 
@@ -212,6 +223,8 @@ Opción code -> optimizas // es para limiar cuando remplazas
 ---
 
 A continuación de describe todo el código a nivel de desarrollo de software. 
+
+<img width="564" height="411" alt="Image" src="https://github.com/user-attachments/assets/7e1248d0-f33a-45fc-9c22-07961c221609" />
 
 Se muestra 4 imagenes de animales, consume API Rest - Home.kt
 
